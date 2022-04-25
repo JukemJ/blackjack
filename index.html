@@ -4,14 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
     <h1>Basic Blackjack</h1>
-    <button>Draw a Card</button>
-    <img src="" alt="" class="dealerHand" id="dealerCardOne">
-    <img src="" alt="" class="dealerHand" id="dealerCardTwo">
-    <h6>Cards Remaining:<span id="remainingCards"></span> </h6>
+    <h2><button id="firstDraw">Draw Cards</button></h2>
+    <h3>Dealer</h3>
+    <h5>Score: <span id="dealerScore"></span></h5>
+    <section>
+        <img src="" alt="" class="dealerHand" id="dealerCardOne">
+        <img src="" alt="" class="dealerHand" id="dealerCardTwo">
+        <img src="" alt="" class="dealerHand" id="dealerCardThree">
+        <img src="" alt="" class="dealerHand" id="dealerCardFour">
+        <img src="" alt="" class="dealerHand" id="dealerCardFive">
+    </section>
+
+    <h3>Player</h3>
+    <h5>Score: <span id="playerScore"></span></h5>
+    <section>
+        <img src="" alt="" class="playerHand" id="playerCardOne">
+        <img src="" alt="" class="playerHand" id="playerCardTwo">
+        <img src="" alt="" class="playerHand" id="playerCardThree">
+        <img src="" alt="" class="playerHand" id="playerCardFour">
+        <img src="" alt="" class="playerHand" id="playerCardFive">
+    </section>
+
+    <div id="playButtons">
+        <button id="hitMe">Hit Me!</button>
+        <button id="stand">Stand</button>
+        <button id="doubleDown">Double Down</button>
+    </div>
+
+
+
+
+    <h6>Cards Remaining: <span id="remainingCards"></span> </h6>
     <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
