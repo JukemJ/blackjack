@@ -42,6 +42,7 @@ function firstDraw(){
         document.querySelector('#dealerCardTwo').src = data.cards[3].image
 
         document.querySelector('#playButtons').style.display = 'flex'
+        document.querySelector('#doubleDown').style.display = 'block'
 
         document.querySelector('#remainingCards').innerText = data.remaining
         if(playerScore == 21)  document.querySelector('#playerScore').innerText = 'BLACKJACK'
@@ -84,20 +85,20 @@ function hitMe(){
                 document.querySelector('#playButtons').style.display = 'none'
             }
         }
-        
+        document.querySelector('#doubleDown').style.display = 'none'
         document.querySelector('#remainingCards').innerText = data.remaining
     })
     .catch(err => {
         console.log(`error ${err}`)
     })
 }
-i = 0
+
 function stand(){
     fetch(`https://deckofcardsapi.com/api/deck/${deck}/draw/?count=1`)
     .then(res => res.json()) 
     .then(data => {
         dealerHand.push(map.get(data.cards[0].value))
-        console.log(dealerScore < 21, i)
+        console.log(dealerHand)
         document.querySelector('#remainingCards').innerText = data.remaining
         dealerScore = dealerHand.reduce((a,b)=>a+b)
         document.querySelector('#dealerScore').innerText = dealerScore
@@ -113,12 +114,50 @@ function stand(){
             document.querySelector('#dealerCardFive').src = data.cards[0].image
             document.querySelector('#dealerCardFive').style.display = 'block'
         }
+        if(dealerScore > 21){
+            if(dealerHand.includes(11)) {
+                dealerScore -= 10
+                dealerHand[dealerHand.indexOf(11)] = 1
+            }
+            else {
+                document.querySelector('#dealerScore').innerText = dealerScore + ' BUSTED!'
+                document.querySelector('#playButtons').style.display = 'none'
+            }
+        }
     })
     .catch(err => {
         console.log(`error ${err}`)
     })
     
 }
+
+function doubleDown(){
+    fetch(`https://deckofcardsapi.com/api/deck/${deck}/draw/?count=1`)
+    .then(res => res.json()) 
+    .then(data => {
+        playerHand.push(map.get(data.cards[0].value))
+        playerScore = playerHand.reduce((a,b)=>a+b)
+        document.querySelector('#playerScore').innerText = playerScore
+        document.querySelector('#playerCardThree').src = data.cards[0].image
+        document.querySelector('#playerCardThree').style.display = 'block'
+        if(playerScore > 21){
+            if(playerHand.includes(11)) {
+                playerScore -= 10
+                playerHand[playerHand.indexOf(11)] = 1
+            }
+            else {
+                document.querySelector('#playerScore').innerText = playerScore + ' BUSTED!'
+            }
+        }
+        document.querySelector('#playButtons').style.display = 'none'
+        
+        document.querySelector('#remainingCards').innerText = data.remaining
+    })
+    .catch(err => {
+        console.log(`error ${err}`)
+    })
+}
+
 function eraseCards(){
     document.querySelector('#playerCardThree').style.display = 'none'
     document.querySelector('#playerCardFour').style.display = 'none'
